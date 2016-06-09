@@ -8,6 +8,41 @@ router.get('/', function(req, res, next) {
 });
 router.get('/characters', function(req,res){
   model.getAllCharacters(function(characters){
+    if (req.query.sort=="height"){
+      characters.sort(function(a,b){
+        if (a.height > b.height) {
+          return 1;
+        }
+        if (a.height < b.height) {
+          return -1;
+        }
+        return 0;
+      })
+    }
+    if (req.query.sort=="mass"){
+      characters.sort(function(a,b){
+        if (a.mass > b.mass) {
+          return 1;
+        }
+        if (a.mass < b.mass) {
+          return -1;
+        }
+        return 0;
+      })
+    }
+    if (req.query.sort=="name"){
+      characters.sort(function(a,b){
+        var nameA = a.name.toUpperCase();
+        var nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      })
+    }
     res.send(characters);
   });
 });
