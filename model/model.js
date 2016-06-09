@@ -3,7 +3,6 @@ var request = Promise.promisify(require("request"));
 
 exports.getAllCharacters = getAllCharacters;
 
-var characters = [];
 function getAllCharacters(callback){
     var options = {
         url: "http://swapi.co/api/people?format=json",
@@ -12,24 +11,31 @@ function getAllCharacters(callback){
         },
         json:true
     };
-    request(options).then(function(data){getAdditionalCharacters(data, callback)}).catch(console.error)
-
-}
-
-function getAdditionalCharacters(data, callback){
-    characters.push(data.body.results);
-
-    if(data.body.next){
-        var options = {
-            url: data.body.next,
-            headers: {
-                "content-type": "application/json"
+    request(options).then(function(data){
+        var totalPages = Math.ceil(parseInt(data.body.count))/10;
+        var urls = [];
+        for(var i=1; i <= totalPages; i++){
+            urls.push("http://swapi.co/api/people?format=json&page="+i);
+        }
+        Promise.map(urls,
+            function(url){
+                var options = {
+                    url: url,
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    json:true
+                };
+                return request(options);
             },
-            json:true
-        };
-        request(options).then(function(data){getAdditionalCharacters(data, callback)}).catch(console.error)
-    }
-    else{
-        callback(characters);
-    }
+            {concurrency:10}
+        ).then(function(list){
+            var characters = list.map(function(item){
+                return item.body.results
+            });
+            callback(characters);
+        })
+
+    }).catch(console.error)
+
 }
