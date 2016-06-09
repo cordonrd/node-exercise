@@ -1,0 +1,22 @@
+{
+  "name": "sw-express-app",
+  "description": "node exercise for grow application",
+  "main": "app.js",
+  "authors": [
+    "Cordon Davies"
+  ],
+  "license": "",
+  "homepage": "https://github.com/cordonrd/node-exercise",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
