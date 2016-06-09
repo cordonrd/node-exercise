@@ -12,10 +12,18 @@ router.get('/characters', function(req,res){
   });
 });
 router.get('/character/:name', function(req,res){
-  res.render('character', {title:req.params.name + "'s Character Page", name:req.params.name})
+  model.getCharacterByName(req.params.name, function(character){
+        res.render('character', {
+          title:character.name + "'s Character Page",
+          character:character
+        })
+      }
+  )
 });
 router.get('/planetresidents', function(req,res){
-  res.send("Planet Residents Page")
+  model.getAllPlanetResidents(function(planets){
+    res.send(planets);
+  });
 });
 
 module.exports = router;

@@ -7,7 +7,43 @@
     <script src='/bower-components/bootstrap/dist/js/bootstrap.min.js'></script>
 </head>
 <body>
-<%- include('components/navbar') %>
-<h1><%= name %></h1>
+    <%- include('components/navbar') %>
+    <main class="container">
+        <h1><%= character.name %></h1>
+        <table class="table">
+            <tr>
+                <th>Height</th>
+                <td><%= character.height %></td>
+            </tr>
+            <tr>
+                <th>Mass</th>
+                <td><%= character.mass %></td>
+            </tr>
+            <tr>
+                <th>Hair Color</th>
+                <td><%= character.hair_color %></td>
+            </tr>
+            <tr>
+                <th>Skin Color</th>
+                <td><%= character.skin_color %></td>
+            </tr>
+            <tr>
+                <th>Eye Color</th>
+                <td><%= character.eye_color %></td>
+            </tr>
+            <tr>
+                <th>Bith Year</th>
+                <td><%= character.birth_year %></td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td><%= character.gender %></td>
+            </tr>
+            <tr>
+                <th>Homeworld</th>
+                <td><%= character.homeworld %></td>
+            </tr>
+        </table>
+    </main>
 </body>
 </html>
