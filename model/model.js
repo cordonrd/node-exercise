@@ -130,6 +130,7 @@ function getCharacterById(id, callback){
         json:true
     };
     request(options).then(function(data){
+
         callback(data.body)
     })
 }
